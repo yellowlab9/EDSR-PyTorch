@@ -4,6 +4,15 @@ import utility
 import data
 import model
 import loss
+
+import sys, os
+
+## pass commandline to main.py if it is inside hydrogen
+## using the default options in `option.py`
+if 'ipykernel_launcher.py' in sys.argv[0] :
+    cmd = "main.py --dataDir /home2/data --ext png"
+    sys.argv = cmd.split()
+    
 from option import args
 from trainer import Trainer
 

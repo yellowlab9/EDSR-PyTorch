@@ -1,6 +1,6 @@
 #EXT := sep_reset
 
-default: EDSR_baseline_x3
+default: EDSR_baseline_x4
 
 # EDSR baseline model (x2)
 EDSR_baseline_x2:
