@@ -7,10 +7,15 @@ import loss
 
 import sys, os
 
+if os.name == 'posix':
+    dataDir = '/home2/data'
+elif os.name == 'nt':
+    dataDir = 'H:\\data'
+
 ## pass commandline to main.py if it is inside hydrogen
 ## using the default options in `option.py`
 if 'ipykernel_launcher.py' in sys.argv[0] :
-    cmd = "main.py --dataDir /home2/data --ext png"
+    cmd = f"main.py --dataDir {dataDir} --ext png"    
     sys.argv = cmd.split()
     
 from option import args
