@@ -1,7 +1,7 @@
 import argparse
 import template
 
-parser = argparse.ArgumentParser(description='EDSR and MDSR')
+parser = argparse.ArgumentParser(description='EDSR, MDSR, and ESPCN')
 
 parser.add_argument('--debug', action='store_true',
                     help='Enables debug mode')
@@ -56,6 +56,8 @@ parser.add_argument('--model', default='EDSR',
 
 parser.add_argument('--act', type=str, default='relu',
                     help='activation function')
+parser.add_argument('--actLast', type=str, default='relu',
+                    help='output layer activation function')                    
 parser.add_argument('--pre_train', type=str, default='.',
                     help='pre-trained model directory')
 parser.add_argument('--extend', type=str, default='.',
@@ -64,6 +66,10 @@ parser.add_argument('--n_resblocks', type=int, default=16,
                     help='number of residual blocks')
 parser.add_argument('--n_feats', type=int, default=64,
                     help='number of feature maps')
+parser.add_argument('--n_feats_list', type=str, default='64_32',
+                    help='number of feature maps of all layers')                    
+parser.add_argument('--kernel_size_list', type=str, default='5_3',
+                    help='kernel sizes of all layers')                    
 parser.add_argument('--res_scale', type=float, default=1,
                     help='residual scaling')
 parser.add_argument('--shift_mean', default=True,
@@ -139,6 +145,8 @@ args = parser.parse_args()
 template.set_template(args)
 
 args.scale = list(map(lambda x: int(x), args.scale.split('+')))
+args.n_feats_list = list(map(lambda x: int(x), args.n_feats_list.split('_')))
+args.kernel_size_list = list(map(lambda x: int(x), args.kernel_size_list.split('_')))
 
 if args.epochs == 0:
     args.epochs = 1e8
